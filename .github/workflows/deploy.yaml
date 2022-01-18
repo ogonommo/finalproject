@@ -5,7 +5,7 @@ on:
   pull_request:
     branches: [main]
 jobs:
-  check-for-secrets-client:
+  check-for-secrets:
     name: Checking client for secrets
     runs-on: ubuntu-latest
     steps:
@@ -13,31 +13,14 @@ jobs:
         uses: actions/checkout@v2
       - name: Run Yelp's detect-secrets
         uses: RobertFischer/detect-secrets-action@v2.0.0
-        working-directory: client
       - name: Commit back .secrets.baseline (if it was missing)
         uses: stefanzweifel/git-auto-commit-action@v4
-        working-directory: client
-        with:
-          commit_message: "💀 build(detect-secrets): Commit the newly-generated .secrets.baseline file"
-
-  check-for-secrets-api:
-    name: Checking API for secrets
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Run Yelp's detect-secrets
-        uses: RobertFischer/detect-secrets-action@v2.0.0
-        working-directory: server
-      - name: Commit back .secrets.baseline (if it was missing)
-        uses: stefanzweifel/git-auto-commit-action@v4
-        working-directory: server
         with:
           commit_message: "💀 build(detect-secrets): Commit the newly-generated .secrets.baseline file"
 
   run-lint-api:
     name: Running lint check on API
-    needs: check-for-secrets-api
+    needs: check-for-secrets
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -48,8 +31,10 @@ jobs:
           node-version: 16.13
       - name: Install dependencies
         run: npm install
+        working-directory: server
       - name: Running tests
         run: eslint .
+        working-directory: server
 
   run-unit-tests-api:
     name: Running unit test on API
@@ -64,5 +49,7 @@ jobs:
           node-version: 16.13
       - name: Install dependencies
         run: npm install
+        working-directory: server
       - name: Running tests
         run: npm test
+        working-directory: server
