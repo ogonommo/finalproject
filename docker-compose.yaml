@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  mariadb:
+    image: mariadb:10.7
+    restart: always
+    environment:
+    - MYSQL_ROOT_PASSWORD=1234
+    - MYSQL_DATABASE=quotes
+    volumes:
+      - ./data:/var/lib/mysql
+    ports:
+      - 3306:3306
+  api:
+    depends_on:
+      - mariadb
+    build:
+      dockerfile: Dockerfile.dev
+      context: './server'
+    volumes:
+      - /app/node_modules
+      - ./server:/app
+    environment:
+      - DBUSER=root
+      - DB_DB=quotes
+      - DBPASSWORD=1234
+      - DBPORT=3306
+      - DBHOST=database
+    ports:
+      - 5000:5000
+    links:
+      - mariadb:database
+  client:
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - REACT_APP_HOST=http://localhost:5000
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./client
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+    ports:
+      - 3000:3000
