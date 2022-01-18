@@ -1,9 +1,9 @@
 name: Project deployment
 on:
   push:
-    branches: [master]
+    branches: [main]
   pull_request:
-    branches: [master]
+    branches: [main]
 jobs:
   check-for-secrets-client:
     name: Checking client for secrets
