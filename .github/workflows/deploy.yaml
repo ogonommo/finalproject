@@ -2,7 +2,7 @@ name: Project deployment
 on:
   push:
     branches: [master]
-  pull-request:
+  pull_request:
     branches: [master]
 jobs:
   check-for-secrets-client:
