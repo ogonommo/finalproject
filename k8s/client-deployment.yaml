@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: web
+  template:
+    metadata:
+      labels:
+        component: web
+    spec:
+      containers:
+        - name: client
+          image: ogonommo/client
+          volumeMounts:
+            - mountPath: /usr/share/nginx/html/config
+              name: config-files
+          ports:
+            - containerPort: 80
+          env:
+            - name: REACT_APP_HOST
+              value: http://localhost/api
+      volumes:
+        - name: config-files
+          configMap:
+            defaultMode: 420
+            name: react-config
+            optional: true
