@@ -26,7 +26,7 @@ const App = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Movie quotes</h1>
+        <h1 class="App-title">Movie quotes</h1>
         {
           isLoading
             ? <div>Loading data...</div>

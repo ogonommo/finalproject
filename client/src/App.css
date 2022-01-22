@@ -7,6 +7,10 @@
   pointer-events: none;
 }
 
+.App-title {
+  color: rgb(240, 192, 255);
+}
+
 .App-quote {
   margin: 10px 0;
   width: 100%;
