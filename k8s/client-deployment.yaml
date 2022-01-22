@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: ogonommo/client
+          image: ogonommo/client:1.0.1
           volumeMounts:
             - mountPath: /usr/share/nginx/html/config
               name: config-files
