@@ -7,6 +7,8 @@ const App = () => {
   const [quotes, setQuotes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  console.log(window?.REACT_APP_HOST);
+
   useEffect(() => {
     fetch(`${BASE_URL}/quotes`)
       .then(r => {
