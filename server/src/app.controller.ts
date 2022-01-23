@@ -8,7 +8,6 @@ export class AppController {
 
   @Get('quotes')
   public async getAllQuotes(): Promise<Quote[]> {
-    await new Promise((r) => setTimeout(r, 2000));
 
     return this.appService.getAllQuotes();
   }
