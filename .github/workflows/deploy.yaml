@@ -1,4 +1,4 @@
-name: Project deployment
+name: Build project
 on:
   push:
     branches: [main]
@@ -6,7 +6,7 @@ on:
     branches: [main]
 jobs:
   check-for-secrets:
-    name: Checking for secrets
+    name: 🔐 Checking for secrets
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -19,7 +19,7 @@ jobs:
           commit_message: "💀 build(detect-secrets): Commit the newly-generated .secrets.baseline file"
 
   sonarcloud:
-    name: SAST with SonarCloud
+    name: 🔍 SAST with SonarCloud
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -33,7 +33,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   run-lint-api:
-    name: Running lint check on API
+    name: 💯 Running lint check on API
     needs: [check-for-secrets, sonarcloud]
     runs-on: ubuntu-latest
     steps:
@@ -51,7 +51,7 @@ jobs:
         working-directory: server
 
   run-unit-tests-api:
-    name: Running unit test on API
+    name: 🧪 Running unit test on API
     needs: run-lint-api
     runs-on: ubuntu-latest
     steps:
@@ -69,7 +69,7 @@ jobs:
         working-directory: server
 
   docker:
-    name: Deploy images to Docker
+    name: 🐋 Deploy images to Docker
     needs: run-unit-tests-api
     runs-on: ubuntu-latest
     steps:
@@ -95,11 +95,11 @@ jobs:
         with:
           context: ./client
           push: true
-          tags: ogonommo/client:1.0.1
+          tags: ogonommo/client:1.0.2
 
 
   finalize:
-    name: All done!
+    name: 🎉 All done!
     needs: docker
     runs-on: ubuntu-latest
     steps:
