@@ -7,8 +7,6 @@ const App = () => {
   const [quotes, setQuotes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  console.log(window?.REACT_APP_HOST);
-
   useEffect(() => {
     fetch(`${BASE_URL}/quotes`)
       .then(r => {
@@ -31,7 +29,7 @@ const App = () => {
           isLoading
             ? <div>Loading data...</div>
             : quotes
-              // .sort(() => Math.random() - 0.5)
+              .sort(() => Math.random() - 0.5)
               .map(({ text, movie }, index) =>
                 <div className="App-quote" key={index}>
                   {text
