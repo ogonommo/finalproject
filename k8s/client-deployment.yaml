@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: client
-          image: ogonommo/client:1.0.2
+          image: ogonommo/client:1.0.3
           ports:
             - containerPort: 80
