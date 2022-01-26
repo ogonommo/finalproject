@@ -145,6 +145,10 @@ The git repository needs the following secrets in order for the deployment workf
 
 ## Improvement ideas
 
+### Workflow
+
+Create separate workflows for client and server solutions, so only relevant jobs are executed and deployment time is reduced
+
 ### Client app
 
 In order to get the correct url to the server, currently the react application makes the following check
@@ -163,7 +167,7 @@ When the app is running through `docker-compose` _Webpack_ will update the `%REA
 
 ### Secrets, variables
 
-Secrets, environment variables can be managed better by using configuration maps.
+Secrets, environment variables can be managed better by using configuration maps or even Helm
 
 <br>
 

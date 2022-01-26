@@ -30,18 +30,20 @@ const App = () => {
         {
           isLoading
             ? <div>Loading data...</div>
-            : quotes.map(({ text, movie }, index) =>
-              <div className="App-quote" key={index}>
-                {text
-                  .split('\n')
-                  .filter(Boolean)
-                  .map((line, i) => <div key={i}>
-                    <q>{line}</q>
-                    <br />
-                  </div>)}
-                <p>- {movie}</p>
-              </div>
-            )
+            : quotes
+              // .sort(() => Math.random() - 0.5)
+              .map(({ text, movie }, index) =>
+                <div className="App-quote" key={index}>
+                  {text
+                    .split('\n')
+                    .filter(Boolean)
+                    .map((line, i) => <div key={i}>
+                      <q>{line}</q>
+                      <br />
+                    </div>)}
+                  <p>- {movie}</p>
+                </div>
+              )
         }
       </header>
     </div>
